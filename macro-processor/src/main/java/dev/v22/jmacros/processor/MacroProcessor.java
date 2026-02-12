@@ -44,7 +44,7 @@ public class MacroProcessor {
             if (MACRO_IMPORT_NAME.equals(macroCall.macroName().getActualIdent())) {
                 TokenStream input = macroCall.input();
                 PathName imported = PathName.fromTokens(input);
-                replacements.add(new Replacement(macroCall.span().getStartCharOffset(), macroCall.span().getEndCharOffset(), ""));
+                replacements.add(new Replacement(macroCall.span().getStartCharOffset() - 1, macroCall.span().getEndCharOffset(), "\n\n"));
                 if (imported.isEmpty()) {
                     continue;
                 }
@@ -69,24 +69,21 @@ public class MacroProcessor {
         String importRef = name.getFirst();
         PathName object = imports.get(importRef);
         if (object != null) {
-            PathName actual;
-            if (object.getActualIdent().equals(importRef)) {
-                actual = object;
-            } else {
-                actual = object.extend(name);
-            }
+            PathName actual = object.union(name);
             String qualifiedName = actual.getQualifiedName();
-            System.out.println("ASDASDASDASDASDASDASDASD: " + qualifiedName);
             for (CallableMacro callableMacro : collector.getCallableMacros()) {
                 String callableName = callableMacro.qualifiedName();
-                System.out.println("SEARCHING FOR MACRO: " + callableName);
                 if (callableName.equals(qualifiedName)) {
                     //macro import found
                     Method macro = callableMacro.method();
                     TokenStream output = (TokenStream) macro.invoke(null, call.input());
-                    String replacement = expandTokens(output);
                     Span span = call.span();
-                    replacements.add(new Replacement(span.getStartCharOffset(), span.getEndCharOffset(), replacement));
+                    int outputRows = 1;
+                    int inputRows = span.getEndRow() - span.getStartRow();
+                    int newlinesCount = inputRows - outputRows + 1 + 1;
+                    String newlines = "\n".repeat(newlinesCount);
+                    String replacement = expandTokens(output) + newlines;
+                    replacements.add(new Replacement(span.getStartCharOffset() - 1, span.getEndCharOffset(), replacement));
                     return;
                 }
             }

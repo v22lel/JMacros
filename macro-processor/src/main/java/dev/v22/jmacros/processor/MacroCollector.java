@@ -33,14 +33,11 @@ public class MacroCollector {
         Files.walk(classesDir)
                 .filter(p -> p.toString().endsWith(".class"))
                 .forEach(classFile -> {
-                    System.out.println("LOADING CLASS FILE: " + classFile);
                     try {
                         String fqn = toFqn(classesDir, classFile);
                         Class<?> clazz = classLoader.loadClass(fqn);
 
                         for (Method m : clazz.getDeclaredMethods()) {
-                            System.out.println("METHOD CHECK: " + m);
-                            System.out.println("ANNOTATION: " + Arrays.toString(m.getAnnotations()));
                             if (Modifier.isStatic(m.getModifiers()) && m.isAnnotationPresent(Macro.class)) {
                                 callableMacros.add(new CallableMacro(fqn + "." + m.getName(), m));
                             }

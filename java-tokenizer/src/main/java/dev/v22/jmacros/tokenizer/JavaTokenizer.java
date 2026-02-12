@@ -9,11 +9,15 @@ public class JavaTokenizer {
     private Path sourceFile;
     private char[] source;
     private int index;
+    private int column;
+    private int row;
 
     public void setSource(char[] source, Path sourceFile) {
         this.sourceFile = sourceFile;
         this.source = source;
         this.index = 0;
+        this.column = 0;
+        this.row = 1;
     }
 
     public TokenStream tokenize() {
@@ -31,7 +35,14 @@ public class JavaTokenizer {
         if (index >= source.length) {
             throw new dev.v22.jmacros.tokenizer.EOF();
         }
-        return source[index++];
+        char c = source[index++];
+        if (c == '\n') {
+            row++;
+            column = 0;
+        } else {
+            column++;
+        }
+        return c;
     }
 
     private char peekChar() throws dev.v22.jmacros.tokenizer.EOF {
@@ -303,8 +314,10 @@ public class JavaTokenizer {
         };
 
         token.setSourceFile(sourceFile);
-        token.setStartCharOffset(startCharOffset);
+        token.setStartCharOffset(startCharOffset + 1);
         token.setEndCharOffset(index);
+        token.setCol(column);
+        token.setRow(row);
         return token;
     }
 

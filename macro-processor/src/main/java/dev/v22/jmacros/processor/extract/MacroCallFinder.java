@@ -37,6 +37,8 @@ public class MacroCallFinder {
             Token token = nextTknFromIter(iterator);
             if (token instanceof IdentToken) {
                 int startToken = token.getStartCharOffset();
+                int startCol = token.getCol();
+                int startRow = token.getRow();
 
                 int macroStart = scanPos;
                 List<Token> nameTokens = new ArrayList<>();
@@ -64,8 +66,10 @@ public class MacroCallFinder {
                     try {
                         TokenStream nameStream = TokenStream.ofTokens(nameTokens);
                         PathName macroName = PathName.fromTokens(nameStream);
+                        int endCol = lastToken.getCol();
+                        int endRow = lastToken.getRow();
                         this.calls.add(new MacroCall(
-                                new Span(lastToken.getSourceFile(), startToken, lastToken.getEndCharOffset()),
+                                new Span(lastToken.getSourceFile(), startToken, lastToken.getEndCharOffset(), startCol, startRow, endCol, endRow),
                                 macroName,
                                 input,
                                 inputType,

@@ -9,6 +9,7 @@ public abstract class Token implements ToTokens {
     protected Path sourceFile;
     protected int startCharOffset;
     protected int endCharOffset;
+    protected int row, col;
 
     public abstract String repr();
 
@@ -34,6 +35,22 @@ public abstract class Token implements ToTokens {
 
     public void setEndCharOffset(int endCharOffset) {
         this.endCharOffset = endCharOffset;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
     }
 
     @Override

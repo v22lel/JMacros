@@ -79,4 +79,15 @@ public class PathName {
     public String getQualifiedName() {
         return toString();
     }
+
+    public PathName union(PathName other) {
+        PathName newName = new PathName();
+        newName.segments.addAll(segments);
+        if (!other.segments.isEmpty()) {
+            for (int i = 1; i < other.segments.size(); i++) {
+                newName.segments.add(other.segments.get(i));
+            }
+        }
+        return newName;
+    }
 }

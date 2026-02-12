@@ -4,7 +4,7 @@ import dev.v22.jmacros.tokens.Token;
 
 public class InvalidMacroCallException extends Exception {
     public InvalidMacroCallException(Token at, String message) {
-        super(String.format("\nSource: %s (character %d), at: %s", at.getSourceFile(), at.getStartCharOffset(), at.repr()));
+        super(String.format("\nSource: %s [%d:%d], at: %s", at.getSourceFile(), at.getRow(), at.getCol(), at.repr()));
     }
 
     public InvalidMacroCallException(Throwable cause) {
