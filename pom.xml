@@ -13,6 +13,7 @@
         <module>macro-processor</module>
         <module>macro-api</module>
         <module>macrotest</module>
+        <module>jyn</module>
     </modules>
 
     <properties>

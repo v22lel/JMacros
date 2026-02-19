@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/java-tokenizer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/java-tokenizer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jyn/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jyn/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/macro-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/macro-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/macro-processor/src/main/java" charset="UTF-8" />

@@ -73,4 +73,5 @@ public abstract class Token implements ToTokens {
     public static class RightBrace extends Token { @Override public String repr() { return "}"; } }
     public static class Eq extends Token { @Override public String repr() { return "="; } }
     public static class At extends Token { @Override public String repr() { return "@"; } }
+    public static class Arrow extends Token { @Override public String repr() { return "->"; } }
 }

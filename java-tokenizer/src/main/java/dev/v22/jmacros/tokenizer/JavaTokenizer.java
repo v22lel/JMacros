@@ -4,6 +4,7 @@ import dev.v22.jmacros.TokenStream;
 import dev.v22.jmacros.tokens.*;
 
 import java.nio.file.Path;
+import java.util.ArrayDeque;
 
 public class JavaTokenizer {
     private Path sourceFile;
@@ -12,12 +13,16 @@ public class JavaTokenizer {
     private int column;
     private int row;
 
+    private ArrayDeque<Token> putback;
+
     public void setSource(char[] source, Path sourceFile) {
         this.sourceFile = sourceFile;
         this.source = source;
         this.index = 0;
         this.column = 0;
         this.row = 1;
+
+        this.putback = new ArrayDeque<>();
     }
 
     public TokenStream tokenize() {
@@ -29,6 +34,10 @@ public class JavaTokenizer {
             }
         } catch (dev.v22.jmacros.tokenizer.EOF ignore) {}
         return ts;
+    }
+
+    public void putback(Token token) {
+        this.putback.addLast(token);
     }
 
     private char nextChar() throws dev.v22.jmacros.tokenizer.EOF {
@@ -105,6 +114,10 @@ public class JavaTokenizer {
     }
 
     private Token next() throws dev.v22.jmacros.tokenizer.EOF {
+        if (!putback.isEmpty()) {
+            return putback.removeFirst();
+        }
+
         int startCharOffset = index;
         skipWhitespaces();
         skipComments();
@@ -132,6 +145,10 @@ public class JavaTokenizer {
                 if (peekChar() == '=') {
                     nextChar();
                     yield new OperatorToken.Minus(true);
+                }
+                if (peekChar() == '>') {
+                    nextChar();
+                    yield new Token.Arrow();
                 }
                 yield new OperatorToken.Minus(false);
             }

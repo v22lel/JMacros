@@ -5,13 +5,13 @@ public abstract class PrimitiveKeywordToken extends KeywordToken {
         super(keyword);
     }
 
-    public static class Byte extends KeywordToken { public Byte() { super(Keyword.Byte); } }
-    public static class Short extends KeywordToken { public Short() { super(Keyword.Short); } }
-    public static class Int extends KeywordToken { public Int() { super(Keyword.Int); } }
-    public static class Long extends KeywordToken { public Long() { super(Keyword.Long); } }
-    public static class Float extends KeywordToken { public Float() { super(Keyword.Float); } }
-    public static class Double extends KeywordToken { public Double() { super(Keyword.Double); } }
-    public static class Char extends KeywordToken { public Char() { super(Keyword.Char); } }
-    public static class Boolean extends KeywordToken { public Boolean() { super(Keyword.Boolean); } }
-    public static class Void extends KeywordToken { public Void() { super(Keyword.Void); } }
+    public static class Byte extends PrimitiveKeywordToken { public Byte() { super(Keyword.Byte); } }
+    public static class Short extends PrimitiveKeywordToken { public Short() { super(Keyword.Short); } }
+    public static class Int extends PrimitiveKeywordToken { public Int() { super(Keyword.Int); } }
+    public static class Long extends PrimitiveKeywordToken { public Long() { super(Keyword.Long); } }
+    public static class Float extends PrimitiveKeywordToken { public Float() { super(Keyword.Float); } }
+    public static class Double extends PrimitiveKeywordToken { public Double() { super(Keyword.Double); } }
+    public static class Char extends PrimitiveKeywordToken { public Char() { super(Keyword.Char); } }
+    public static class Boolean extends PrimitiveKeywordToken { public Boolean() { super(Keyword.Boolean); } }
+    public static class Void extends PrimitiveKeywordToken { public Void() { super(Keyword.Void); } }
 }
